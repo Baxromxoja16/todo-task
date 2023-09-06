@@ -1,6 +1,8 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <div class="login-container">
     <h2>Login</h2>
+
+    <h2 style="color: red">{{errorMessage}}</h2>
   <div>
     <label for="email">Email:</label>
     <input type="text" id="email" formControlName="email" placeholder="Enter your email or username">

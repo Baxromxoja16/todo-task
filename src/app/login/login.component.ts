@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { ResponseToken } from './model/user.model';
 import { LoginService } from './services/login.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { LoginService } from './services/login.service';
 export class LoginComponent {
   loginForm!: FormGroup;
   emailRegex = new RegExp(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/)
+  errorMessage = '';
 
   constructor(private formBuilder: FormBuilder, private loginService: LoginService) { }
 
@@ -25,7 +27,13 @@ export class LoginComponent {
       return;
     }
     // Perform login/authentication logic here
-    console.log(this.loginForm.value);
-    // this.loginService.login()
+    this.loginService.login(this.loginForm.value).subscribe(
+      (res: ResponseToken) => {
+        localStorage.setItem('token', res.token)
+      },
+      (err) => {
+        this.errorMessage = err.errorMessage
+      }
+    )
   }
 }
