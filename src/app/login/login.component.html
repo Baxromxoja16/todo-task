@@ -1,9 +1,11 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="login-container">
+    <h2>Login</h2>
   <div>
-    <label for="email">Email/Username:</label>
+    <label for="email">Email:</label>
     <input type="text" id="email" formControlName="email" placeholder="Enter your email or username">
     <div *ngIf="loginForm.controls?.['email']?.invalid && (loginForm.controls?.['email']?.dirty || loginForm.controls?.['email']?.touched)">
-      <div *ngIf="loginForm.controls?.['email']?.errors?.['required']">Email/Username is required.</div>
+      <div class="help-block" *ngIf="loginForm.controls?.['email']?.errors?.['required']">Email/Username is required.</div>
     </div>
   </div>
 
@@ -11,9 +13,10 @@
     <label for="password">Password:</label>
     <input type="password" id="password" formControlName="password" placeholder="Enter your password">
     <div *ngIf="loginForm.controls?.['password']?.invalid && (loginForm.controls?.['password']?.dirty || loginForm.controls?.['password']?.touched)">
-      <div *ngIf="loginForm.controls?.['password']?.errors?.['required']">Password is required.</div>
+      <div class="help-block" *ngIf="loginForm.controls?.['password']?.errors?.['required']">Password is required.</div>
     </div>
   </div>
 
   <button type="submit" [disabled]="loginForm.invalid">Login</button>
+  </div>
 </form>
