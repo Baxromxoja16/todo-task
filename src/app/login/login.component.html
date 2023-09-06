@@ -5,7 +5,8 @@
     <label for="email">Email:</label>
     <input type="text" id="email" formControlName="email" placeholder="Enter your email or username">
     <div *ngIf="loginForm.controls?.['email']?.invalid && (loginForm.controls?.['email']?.dirty || loginForm.controls?.['email']?.touched)">
-      <div class="help-block" *ngIf="loginForm.controls?.['email']?.errors?.['required']">Email/Username is required.</div>
+      <div class="help-block" *ngIf="loginForm.controls?.['email']?.errors?.['required']">Email is required.</div>
+      <div class="help-block" *ngIf="loginForm.controls?.['email']?.errors?.['pattern']">Email is not correct </div>
     </div>
   </div>
 

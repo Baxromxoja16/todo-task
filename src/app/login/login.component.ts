@@ -9,12 +9,13 @@ import { LoginService } from './services/login.service';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
+  emailRegex = new RegExp(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/)
 
   constructor(private formBuilder: FormBuilder, private loginService: LoginService) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      "email": ['', [Validators.required]],
+      "email": ['', [Validators.required, Validators.pattern(this.emailRegex)]],
       "password": ['', [Validators.required]]
     });
   }
