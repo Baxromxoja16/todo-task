@@ -12,7 +12,7 @@ export class TodoService {
   constructor(private http: HttpClient) { }
 
   getListOfUsers() {
-    return this.http.get<ListOfUsers>(this.baseUrl + 'todo');
+    return this.http.get<ListOfUsers>(this.baseUrl + 'todo', {headers: this.headers});
   }
 
   postTodo(data: UserModel) {
