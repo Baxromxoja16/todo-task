@@ -71,8 +71,8 @@ export class TodoFormComponent implements OnDestroy {
 
     this.todoForm = this.formBuilder.group({
       title: [title, Validators.required],
-      completed: [completed, Validators.required],
-      user: [user, Validators.required]
+      user: [user, Validators.required],
+      completed: [completed],
     });
   }
 }

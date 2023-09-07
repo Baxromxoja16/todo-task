@@ -50,3 +50,14 @@ h2 {
   text-align: center;
   color: red;
 }
+
+.require-message {
+  color: red;
+  margin-bottom: 10px;
+}
+.ng-invalid.ng-touched {
+  border-color: red;
+}
+.ng-valid.ng-touched.ng-dirty {
+  border-color: #7a7a7a;
+}

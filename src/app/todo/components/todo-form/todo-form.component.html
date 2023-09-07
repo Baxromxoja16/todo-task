@@ -7,10 +7,16 @@
       formControlName="title"
       placeholder="Enter todo title"
     />
+    <div *ngIf="todoForm.get('title')?.invalid && (todoForm.get('title')?.dirty || todoForm.get('title')?.touched)">
+      <div class="require-message" *ngIf="todoForm.get('title')?.errors?.['required']">Title is required.</div>
+    </div>
   </div>
   <div>
     <label for="user">User:</label>
     <input type="number" id="user" formControlName="user" />
+    <div *ngIf="todoForm.get('user')?.invalid && (todoForm.get('user')?.dirty || todoForm.get('user')?.touched)">
+      <div class="require-message" *ngIf="todoForm.get('user')?.errors?.['required']">User is required.</div>
+    </div>
   </div>
   <div class="checkout">
     <label class="" for="completed">Completed:</label>
