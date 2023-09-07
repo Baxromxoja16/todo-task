@@ -50,6 +50,10 @@ export class TodoService {
     return this.http.get<ListOfUsers>(this.baseUrl + 'todo', { headers: this.headers });
   }
 
+  getDetailTodo(id: string) {
+    return this.http.get<UserModel>(this.baseUrl + 'todo/' + id, { headers: this.headers });
+  }
+
   createTodo(data: UserModel) {
     return this.http.post(this.baseUrl + 'todo', data, { headers: this.headers });
   }

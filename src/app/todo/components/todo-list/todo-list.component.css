@@ -35,8 +35,11 @@ button {
 }
 
 .btn-primary {
-  background-color: #008CBA; /* Green */
+  background-color: #008CBA; /* Blue */
 }
 .btn-danger {
   background-color: #f44336; /* Green */
+}
+.btn-success {
+  background-color: #4CAF50; /* Green */
 }

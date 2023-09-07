@@ -5,6 +5,7 @@ import { TodoComponent } from './todo.component';
 import { TodoFormComponent } from './components/todo-form/todo-form.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TodoDetailsComponent } from './components/todo-details/todo-details.component';
 
 
 
@@ -12,12 +13,13 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     TodoFormComponent,
     TodoListComponent,
-    TodoComponent
+    TodoComponent,
+    TodoDetailsComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule.forChild([{ path: '', component: TodoComponent }])
+    RouterModule.forChild([{ path: '', component: TodoComponent }, { path: ':id', component: TodoDetailsComponent }])
   ],
   exports: [
     TodoFormComponent,
