@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ListOfUsers, UserModel } from '../models/todo.model';
 
@@ -7,6 +7,7 @@ import { ListOfUsers, UserModel } from '../models/todo.model';
 })
 export class TodoService {
   baseUrl = 'https://joldibaev.uz/api/'
+  token = localStorage.getItem('token');
 
   constructor(private http: HttpClient) { }
 
@@ -15,6 +16,13 @@ export class TodoService {
   }
 
   postTodo(data: UserModel) {
-    return this.http.post(this.baseUrl + 'todo', data);
+    return this.http.post(this.baseUrl + 'todo', data, {headers: this.headers});
+  }
+
+  get headers() {
+    const headers = new HttpHeaders();
+    headers.set('Content-Type', 'application/json;');
+    headers.set('Authorization', `Token ${this.token}`);
+    return headers
   }
 }

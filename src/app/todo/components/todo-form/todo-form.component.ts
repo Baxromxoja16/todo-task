@@ -18,7 +18,7 @@ export class TodoFormComponent {
     this.todoForm = this.formBuilder.group({
       title: [null, Validators.required],
       completed: [null, Validators.required],
-      user: [null, Validators.required]
+      user: [false, Validators.required]
     });
   }
 
