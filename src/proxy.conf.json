@@ -1,10 +1,7 @@
 {
-  "/api/": {
+  "/api": {
     "target": "https://joldibaev.uz",
-    "secure": false,
-    "pathRewrite": {
-      "^/api": ""
-    },
+    "secure": true,
     "changeOrigin": true
   }
 }

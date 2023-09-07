@@ -47,7 +47,6 @@ export class TodoFormComponent implements OnDestroy {
         this.initForm()
       },
          (err) => {
-          console.log(err.message);
           this.errorMessage = err.message
        }
       ))
