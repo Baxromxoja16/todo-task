@@ -1,7 +1,7 @@
 <div class="list-container">
   <h2>List Title</h2>
   <ul >
-    <li *ngFor="let item of listItems">
+    <li *ngFor="let item of listOfUsers.results">
       <p><strong>ID: </strong> {{ item.id }}</p>
       <p><strong>Title: </strong> {{ item.title }}</p>
       <p><strong>Completed: </strong> {{ item.completed }}</p>
@@ -9,8 +9,8 @@
       <p><strong>Updated: </strong> At: {{ item.updated_at }}</p>
       <p><strong>User: </strong> {{ item.user }}</p>
       <p>
-        <button class="btn btn-primary">Edit</button>
-        <button class="btn btn-danger">Delete</button>
+        <button class="btn btn-primary" (click)="editTodo(item.id)">Edit</button>
+        <button class="btn btn-danger" (click)="deleteTodo(item.id)">Delete</button>
       </p>
     </li>
   </ul>

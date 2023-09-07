@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ListOfUsers } from '../../models/todo.model';
+import { ListOfUsers, UserModel } from '../../models/todo.model';
 import { TodoService } from '../../services/todo.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -11,15 +11,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class TodoFormComponent {
   todoForm!: FormGroup;
   errorMessage = ''
+  todoChanged: UserModel[] = []
+  editMode = false;
 
   constructor(private formBuilder: FormBuilder, private todoService: TodoService) { }
 
   ngOnInit() {
-    this.todoForm = this.formBuilder.group({
-      title: [null, Validators.required],
-      completed: [null, Validators.required],
-      user: [false, Validators.required]
-    });
+    this.todoService.todoChanged.subscribe((data) => {
+      this.todoChanged = data
+      this.editMode = true
+      this.initForm()
+    })
+    this.initForm()
   }
 
   onSubmit() {
@@ -29,10 +32,36 @@ export class TodoFormComponent {
 
     const todoData = this.todoForm.value;
 
-    this.todoService.postTodo(todoData).subscribe(() => {},
-      (err) => {
-        this.errorMessage = err.errorMessage
-      }
-    )
+    if (this.editMode) {
+      this.todoService.editTodo(this.todoChanged[0].id, todoData).subscribe(() => { },
+        (err) => {
+          this.errorMessage = err.errorMessage
+        }
+      )
+    } else {
+      this.todoService.createTodo(todoData).subscribe(() => { },
+         (err) => {
+          this.errorMessage = err.errorMessage
+       }
+      )
+    }
+  }
+
+  private initForm() {
+    let title = '';
+    let completed = false;
+    let user: number | undefined;
+
+    if (this.editMode) {
+      title = this.todoChanged[0].title;
+      completed = this.todoChanged[0].completed;
+      user = this.todoChanged[0].user;
+    }
+
+    this.todoForm = this.formBuilder.group({
+      title: [title, Validators.required],
+      completed: [completed, Validators.required],
+      user: [user, Validators.required]
+    });
   }
 }
