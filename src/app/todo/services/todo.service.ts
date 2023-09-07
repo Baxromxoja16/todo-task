@@ -10,6 +10,7 @@ export class TodoService {
   baseUrl = 'https://joldibaev.uz/api/'
   token = localStorage.getItem('token');
   todoChanged = new Subject<UserModel[]>();
+  todoListChanged = new Subject<ListOfUsers>();
 
   listItems: Observable<ListOfUsers> = of<ListOfUsers>({
     count: 7,

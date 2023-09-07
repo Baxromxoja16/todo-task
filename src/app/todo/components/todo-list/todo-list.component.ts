@@ -27,14 +27,21 @@ export class TodoListComponent implements OnInit, OnDestroy {
   }
 
   editTodo(id: string) {
-    this.subscription.add(this.todoService.listItems.subscribe((data) => {
-      this.editTodoResult = data.results.filter((list) => list.id === id);
-      this.todoService.todoChanged.next(this.editTodoResult);
-    }))
+    this.subscription.add(
+      this.todoService.listItems.subscribe((data) => {
+        this.editTodoResult = data.results.filter((list) => list.id === id);
+        this.todoService.todoChanged.next(this.editTodoResult);
+      })
+    )
   }
 
   deleteTodo(id: string) {
-
+    this.subscription.add(
+      this.todoService.deleteTodo(id).subscribe(() => {
+        let idIndex = this.listOfUsers.results.findIndex((list) => list.id === id);
+        this.listOfUsers.results.splice(idIndex, 1);
+      })
+    )
   }
 
   ngOnDestroy(): void {
