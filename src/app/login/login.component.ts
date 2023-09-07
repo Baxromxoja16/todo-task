@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { ResponseToken } from './model/user.model';
 import { LoginService } from './services/login.service';
 
@@ -8,10 +9,11 @@ import { LoginService } from './services/login.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   loginForm!: FormGroup;
   emailRegex = new RegExp(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/)
   errorMessage = '';
+  subscription: Subscription = new Subscription()
 
   constructor(private formBuilder: FormBuilder, private loginService: LoginService) { }
 
@@ -27,13 +29,17 @@ export class LoginComponent {
       return;
     }
     // Perform login/authentication logic here
-    this.loginService.login(this.loginForm.value).subscribe(
+    this.subscription.add(this.loginService.login(this.loginForm.value).subscribe(
       (res: ResponseToken) => {
         localStorage.setItem('token', res.token)
       },
       (err) => {
         this.errorMessage = err.errorMessage
       }
-    )
+    ))
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
 }

@@ -1,27 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ListOfUsers, UserModel } from '../../models/todo.model';
 import { TodoService } from '../../services/todo.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-todo-form',
   templateUrl: './todo-form.component.html',
   styleUrls: ['./todo-form.component.css']
 })
-export class TodoFormComponent {
+export class TodoFormComponent implements OnDestroy {
   todoForm!: FormGroup;
   errorMessage = ''
   todoChanged: UserModel[] = []
   editMode = false;
+  subscription: Subscription = new Subscription();
 
   constructor(private formBuilder: FormBuilder, private todoService: TodoService) { }
 
   ngOnInit() {
-    this.todoService.todoChanged.subscribe((data) => {
+    this.subscription.add(this.todoService.todoChanged.subscribe((data) => {
       this.todoChanged = data
       this.editMode = true
       this.initForm()
-    })
+    }))
     this.initForm()
   }
 
@@ -33,18 +35,22 @@ export class TodoFormComponent {
     const todoData = this.todoForm.value;
 
     if (this.editMode) {
-      this.todoService.editTodo(this.todoChanged[0].id, todoData).subscribe(() => { },
+      this.subscription.add(this.todoService.editTodo(this.todoChanged[0].id, todoData).subscribe(() => { },
         (err) => {
           this.errorMessage = err.errorMessage
         }
-      )
+      ))
     } else {
-      this.todoService.createTodo(todoData).subscribe(() => { },
+      this.subscription.add(this.todoService.createTodo(todoData).subscribe(() => { },
          (err) => {
           this.errorMessage = err.errorMessage
        }
-      )
+      ))
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
 
   private initForm() {
