@@ -7,7 +7,7 @@ import { ListOfUsers, UserModel } from '../models/todo.model';
   providedIn: 'root'
 })
 export class TodoService {
-  baseUrl = 'https://joldibaev.uz/api/'
+  baseUrl = '/api/'
   token = localStorage.getItem('token');
   todoChanged = new Subject<UserModel[]>();
   todoListChanged = new Subject<ListOfUsers>();

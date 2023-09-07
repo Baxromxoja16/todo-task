@@ -1,5 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, ErrorHandler, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ResponseToken } from './model/user.model';
 import { LoginService } from './services/login.service';
@@ -15,7 +16,11 @@ export class LoginComponent implements OnDestroy {
   errorMessage = '';
   subscription: Subscription = new Subscription()
 
-  constructor(private formBuilder: FormBuilder, private loginService: LoginService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private loginService: LoginService,
+    private router: Router,
+    private errorHandle: ErrorHandler) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -29,14 +34,15 @@ export class LoginComponent implements OnDestroy {
       return;
     }
     // Perform login/authentication logic here
-    this.subscription.add(this.loginService.login(this.loginForm.value).subscribe(
+    const subscribe = this.loginService.login(this.loginForm.value).subscribe(
       (res: ResponseToken) => {
-        localStorage.setItem('token', res.token)
+        localStorage.setItem('token', res.token);
+        this.router.navigate(['/todo']);
       },
-      (err) => {
-        this.errorMessage = err.message
-      }
-    ))
+      (err) => this.errorHandle.handleError(err)
+    )
+
+    this.subscription.add(subscribe)
   }
 
   ngOnDestroy(): void {

@@ -6,7 +6,7 @@ import { ResponseToken, User } from '../model/user.model';
   providedIn: 'root'
 })
 export class LoginService {
-  baseUrl = 'https://joldibaev.uz/api/'
+  baseUrl = '/api/'
 
   constructor(private http: HttpClient) {}
 

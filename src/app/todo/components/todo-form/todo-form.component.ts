@@ -3,6 +3,7 @@ import { ListOfUsers, UserModel } from '../../models/todo.model';
 import { TodoService } from '../../services/todo.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 
 @Component({
   selector: 'app-todo-form',
@@ -16,14 +17,18 @@ export class TodoFormComponent implements OnDestroy {
   editMode = false;
   subscription: Subscription = new Subscription();
 
-  constructor(private formBuilder: FormBuilder, private todoService: TodoService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private todoService: TodoService,
+    private errorHandle: ErrorHandlingService) { }
 
   ngOnInit() {
-    this.subscription.add(this.todoService.todoChanged.subscribe((data) => {
+    const subscribe = this.todoService.todoChanged.subscribe((data) => {
       this.todoChanged = data
       this.editMode = true
       this.initForm()
-    }))
+    }, (err) => this.errorHandle.handleError(err))
+    this.subscription.add(subscribe);
     this.initForm()
   }
 
@@ -35,21 +40,20 @@ export class TodoFormComponent implements OnDestroy {
     const todoData = this.todoForm.value;
 
     if (this.editMode) {
-      this.subscription.add(this.todoService.editTodo(this.todoChanged[0].id, todoData).subscribe(() => {
+      const subscribe = this.todoService.editTodo(this.todoChanged[0].id, todoData).subscribe(() => {
         this.initForm()
       },
-        (err) => {
-          this.errorMessage = err.message
-        }
-      ))
+        (err) => this.errorHandle.handleError(err)
+      )
+
+      this.subscription.add(subscribe)
     } else {
-      this.subscription.add(this.todoService.createTodo(todoData).subscribe(() => {
+      const subscribe = this.todoService.createTodo(todoData).subscribe(() => {
         this.initForm()
       },
-         (err) => {
-          this.errorMessage = err.message
-       }
-      ))
+        (err) => this.errorHandle.handleError(err)
+      )
+      this.subscription.add(subscribe)
     }
   }
 
