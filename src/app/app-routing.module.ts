@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: ()=> import('./login/login.module').then(m => m.LoginModule)},
   { path: 'todo', canActivate: [LoginGuard],  loadChildren: ()=> import('./todo/todo.module').then(m => m.TodoModule)},
   {
-    path: '**', redirectTo: 'login', pathMatch: 'full',
+    path: '**', redirectTo: 'todo', pathMatch: 'full',
   },
 ];
 
