@@ -32,3 +32,8 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #0056b3;
 }
+
+h2 {
+  text-align: center;
+  color: red;
+}

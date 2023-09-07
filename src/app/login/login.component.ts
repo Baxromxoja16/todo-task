@@ -34,7 +34,7 @@ export class LoginComponent implements OnDestroy {
         localStorage.setItem('token', res.token)
       },
       (err) => {
-        this.errorMessage = err.errorMessage
+        this.errorMessage = err.message
       }
     ))
   }

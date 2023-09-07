@@ -35,15 +35,20 @@ export class TodoFormComponent implements OnDestroy {
     const todoData = this.todoForm.value;
 
     if (this.editMode) {
-      this.subscription.add(this.todoService.editTodo(this.todoChanged[0].id, todoData).subscribe(() => { },
+      this.subscription.add(this.todoService.editTodo(this.todoChanged[0].id, todoData).subscribe(() => {
+        this.initForm()
+      },
         (err) => {
-          this.errorMessage = err.errorMessage
+          this.errorMessage = err.message
         }
       ))
     } else {
-      this.subscription.add(this.todoService.createTodo(todoData).subscribe(() => { },
+      this.subscription.add(this.todoService.createTodo(todoData).subscribe(() => {
+        this.initForm()
+      },
          (err) => {
-          this.errorMessage = err.errorMessage
+          console.log(err.message);
+          this.errorMessage = err.message
        }
       ))
     }
