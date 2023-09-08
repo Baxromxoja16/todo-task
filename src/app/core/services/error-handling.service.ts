@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorHandlingService {
 
-  constructor() { }
+  constructor(private _snackBar: MatSnackBar) { }
 
   handleError(error: any) {
 
@@ -22,11 +23,11 @@ export class ErrorHandlingService {
 
       // server-side error
 
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      errorMessage = `Error Code: ${error.status} Message: ${error.message}`;
 
     }
 
-    window.alert(errorMessage);
+    this._snackBar.open(errorMessage);
 
     return throwError(errorMessage);
 
