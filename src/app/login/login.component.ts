@@ -1,7 +1,8 @@
-import { Component, ErrorHandler, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ErrorHandlingService } from '../core/services/error-handling.service';
 import { ResponseToken } from './model/user.model';
 import { LoginService } from './services/login.service';
 
@@ -20,7 +21,7 @@ export class LoginComponent implements OnDestroy {
     private formBuilder: FormBuilder,
     private loginService: LoginService,
     private router: Router,
-    private errorHandle: ErrorHandler) { }
+    private errorHandle: ErrorHandlingService) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -38,8 +39,7 @@ export class LoginComponent implements OnDestroy {
       (res: ResponseToken) => {
         localStorage.setItem('token', res.token);
         this.router.navigate(['/todo']);
-      },
-      (err) => this.errorHandle.handleError(err)
+      }
     )
 
     this.subscription.add(subscribe)

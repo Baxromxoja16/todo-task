@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { ListOfUsers, UserModel } from '../../models/todo.model';
 import { TodoService } from '../../services/todo.service';
 
@@ -15,34 +16,37 @@ export class TodoListComponent implements OnInit, OnDestroy {
   editTodoResult: UserModel[] = []
   subscription: Subscription = new Subscription()
 
-  constructor(private todoService: TodoService, private router: Router) { }
+  constructor(
+    private todoService: TodoService,
+    private router: Router,
+    private errorHandle: ErrorHandlingService) { }
 
   ngOnInit(): void {
-    this.subscription.add(this.todoService.listItems.subscribe((userList: ListOfUsers) => {
+    const subscribe = this.todoService.getTodos().subscribe((userList: ListOfUsers) => {
+      console.log(userList);
       this.listOfUsers = userList
-    },
-      (err) => {
-        this.errorMessage = err.errorMessage
-      }
-    ))
+    }, (err)=>  console.log(err))
+
+    this.subscription.add(subscribe);
   }
 
   editTodo(id: string) {
-    this.subscription.add(
-      this.todoService.listItems.subscribe((data) => {
-        this.editTodoResult = data.results.filter((list) => list.id === id);
-        this.todoService.todoChanged.next(this.editTodoResult);
-      })
-    )
+    const subscribe = this.todoService.getTodos().subscribe((data) => {
+      this.editTodoResult = data.results.filter((list) => list.id === id);
+      this.todoService.todoChanged.next(this.editTodoResult);
+    });
+
+    this.subscription.add(subscribe);
   }
 
   deleteTodo(id: string) {
-    this.subscription.add(
-      this.todoService.deleteTodo(id).subscribe(() => {
+    const subscribe = this.todoService.deleteTodo(id)
+      .subscribe(() => {
         let idIndex = this.listOfUsers.results.findIndex((list) => list.id === id);
         this.listOfUsers.results.splice(idIndex, 1);
-      })
-    )
+      }, (err) => this.errorHandle.handleError(err));
+
+    this.subscription.add(subscribe);
   }
 
   detailTodo(id: string) {

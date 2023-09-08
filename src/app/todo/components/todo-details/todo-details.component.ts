@@ -1,6 +1,7 @@
-import { Component, ErrorHandler, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { UserModel } from '../../models/todo.model';
 import { TodoService } from '../../services/todo.service';
 
@@ -16,7 +17,7 @@ export class TodoDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private todoService: TodoService,
-    private errorHandle: ErrorHandler) { }
+    private errorHandle: ErrorHandlingService) { }
 
   ngOnInit(): void {
     let id = this.router.routerState.snapshot.url.split('/')[2];

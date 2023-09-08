@@ -11,6 +11,8 @@ export class LoginService {
   constructor(private http: HttpClient) {}
 
   login(data: User) {
-    return this.http.post<ResponseToken>(this.baseUrl + 'auth/token/login/', data)
+    return this.http.post<ResponseToken>(this.baseUrl + 'auth/token/login/', data, {
+      headers: {'Access-Control-Allow-Origin': '*'}
+    })
   }
 }
