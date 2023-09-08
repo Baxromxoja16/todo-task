@@ -1,6 +1,6 @@
 <div class="container">
   <h2>Detail</h2>
-  <ul>
+  <ul *ngIf="item !== undefined">
     <p><strong>ID: </strong> {{ item.id }}</p>
     <p><strong>Title: </strong> {{ item.title }}</p>
     <p><strong>Completed: </strong> {{ item.completed }}</p>

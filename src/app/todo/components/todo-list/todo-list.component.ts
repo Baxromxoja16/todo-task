@@ -23,7 +23,6 @@ export class TodoListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const subscribe = this.todoService.getTodos().subscribe((userList: ListOfUsers) => {
-      console.log(userList);
       this.listOfUsers = userList
     }, (err)=>  console.log(err))
 
