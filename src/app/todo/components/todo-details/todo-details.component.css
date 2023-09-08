@@ -1,8 +1,8 @@
 .container {
-  max-width: 1000px;
+  max-width: 600px;
   margin: auto;
   text-align: center;
 }
-ul {
+.content {
   text-align: left;
 }

@@ -21,29 +21,14 @@
   padding: 0;
 }
 
-.list-container li {
+.list-container .card {
   margin-bottom: 10px;
   border: 2px solid #444;
   padding: 10px;
   border-radius: 10px;
 }
-button {
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 10px;
-}
 
-.btn-primary {
-  background-color: #008CBA; /* Blue */
-}
-.btn-danger {
-  background-color: #f44336; /* Green */
-}
-.btn-success {
-  background-color: #4CAF50; /* Green */
+.buttons {
+  display: flex;
+  gap: 10px;
 }

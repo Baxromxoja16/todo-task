@@ -1,11 +1,21 @@
 <div class="container">
   <h2>Detail</h2>
-  <ul *ngIf="item !== undefined">
-    <p><strong>ID: </strong> {{ item.id }}</p>
-    <p><strong>Title: </strong> {{ item.title }}</p>
-    <p><strong>Completed: </strong> {{ item.completed }}</p>
-    <p><strong>Created: </strong> At: {{ item.created_at }}</p>
-    <p><strong>Updated: </strong> At: {{ item.updated_at }}</p>
-    <p><strong>User: </strong> {{ item.user }}</p>
-  </ul>
+  <div class="content" *ngIf="item !== undefined">
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title><strong>Title: </strong> {{ item.title }}</mat-card-title>
+          <mat-card-subtitle><strong>Completed: </strong> {{ item.completed }}</mat-card-subtitle>
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content>
+        <p><strong>ID: </strong> {{ item.id }}</p>
+        <p><strong>Created: </strong> At: {{ item.created_at }}</p>
+        <p><strong>Updated: </strong> At: {{ item.updated_at }}</p>
+        <p><strong>User: </strong> {{ item.user }}</p>
+      </mat-card-content>
+      <button mat-stroked-button color="primary" [routerLink]="['/todo']">Back to</button>
+
+    </mat-card>
+  </div>
 </div>

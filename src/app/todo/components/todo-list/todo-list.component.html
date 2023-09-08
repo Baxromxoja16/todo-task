@@ -1,17 +1,25 @@
 <div class="list-container">
   <h2>List Title</h2>
   <ul *ngIf="listOfUsers !== null">
-    <li *ngFor="let item of listOfUsers?.results">
-      <p><strong>Title: </strong> {{ item.title }}</p>
-      <p><strong>Completed: </strong> {{ item.completed }}</p>
-      <p><strong>Created: </strong> At: {{ item.created_at | date }}</p>
-      <p><strong>Updated: </strong> At: {{ item.updated_at | date }}</p>
-      <p><strong>User: </strong> {{ item.user }}</p>
-      <p>
-        <button class="btn btn-primary" (click)="editTodo(item.id)">Edit</button>
-        <button class="btn btn-danger" (click)="deleteTodo(item.id)">Delete</button>
-        <button class="btn btn-success" (click)="detailTodo(item.id)">Detail</button>
-      </p>
+    <mat-card class="card" *ngFor="let item of listOfUsers?.results">
+      <mat-card-header>
+        <mat-card-title>Title: {{ item.title }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p><strong>Completed: </strong> {{ item.completed }}</p>
+        <p><strong>Created: </strong> At: {{ item.created_at | date }}</p>
+        <p><strong>Updated: </strong> At: {{ item.updated_at | date }}</p>
+        <p><strong>User: </strong> {{ item.user }}</p>
+        <div class="buttons">
+          <button mat-raised-button color="primary" (click)="editTodo(item.id)">Edit</button>
+          <button mat-raised-button color="warn" (click)="deleteTodo(item.id)">Delete</button>
+          <button mat-raised-button color="accent" (click)="detailTodo(item.id)">Detail</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <li >
+
     </li>
   </ul>
 </div>
