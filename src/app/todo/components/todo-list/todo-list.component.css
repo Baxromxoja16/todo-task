@@ -1,5 +1,5 @@
 .list-container {
-  max-width: 400px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -14,6 +14,10 @@
 
 .list-container ul {
   list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
   padding: 0;
 }
 

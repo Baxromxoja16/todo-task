@@ -2,7 +2,6 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ErrorHandlingService } from '../core/services/error-handling.service';
 import { ResponseToken } from './model/user.model';
 import { LoginService } from './services/login.service';
 
@@ -20,8 +19,7 @@ export class LoginComponent implements OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginService,
-    private router: Router,
-    private errorHandle: ErrorHandlingService) { }
+    private router: Router) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({

@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ListOfUsers, UserModel } from '../../models/todo.model';
+import { UserModel } from '../../models/todo.model';
 import { TodoService } from '../../services/todo.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';

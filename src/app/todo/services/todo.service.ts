@@ -10,9 +10,6 @@ export class TodoService {
   baseUrl = '/api/todo'
   token = localStorage.getItem('token');
   todoChanged = new Subject<UserModel[]>();
-  todoListChanged = new Subject<ListOfUsers>();
-
-  listItems: Subject<ListOfUsers> = new Subject<ListOfUsers>()
 
   constructor(private http: HttpClient) { }
 
