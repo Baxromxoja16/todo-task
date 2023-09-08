@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target": "http://joldibaev.uz",
+    "secure": true,
+    "changeOrigin": true
+  }
+}
